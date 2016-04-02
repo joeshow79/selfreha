@@ -40,18 +40,18 @@ router.get('/', function(req, res, next) {
     userid = req.query.userid || 0;
     errMsg = req.query.errMsg;
   }
-  var query = new AV.Query(Record);
+  var query = new AV.Query('Record');
   query.equalTo('author', userid);
   query.include('status');
   query.descending('updatedAt');
   query.limit(50);
   query.find({
     success: function(results) {
-//	    res.json(results);
+	    res.json(results);
     },
 
     error: function(err) {
-//      next(err);
+      next(err);
     }
   })
 });
