@@ -8,6 +8,8 @@ var users = require('./routes/users');
 var todos = require('./routes/todos');
 var cloud = require('./cloud');
 
+var record = require('./routes/record');
+
 var app = express();
 
 // view engine setup
@@ -33,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // 可以将一类的路由单独保存在一个文件中
 app.use('/todos', todos);
 app.use('/users', users);
+app.use('/record', record);
 
 app.get('/', function(req, res) {
   res.redirect('/todos');
