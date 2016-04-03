@@ -12,7 +12,7 @@ AV.Cloud.define('hello', function(req, res) {
   res.success('Hello world!');
 });
 
-//AV.Cloud.define("getAllMyRecords", records.getAllMyRecords);
+AV.Cloud.define("getAllMyRecords", records.getAllMyRecords);
 
 // 从 content 中查找 tag 的正则表达式
 var tagRe = /#(\w+)/g
