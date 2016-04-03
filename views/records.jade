@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1 Record
+  
+  #createrecord
+    form(action='/records', method='POST')
+      .form-group
+        input.form-control(type='input', name='value')
+        input.btn.btn-default(type='submit', value='新增')
+
+  h2 record 列表
+  div
+    a.btn.btn-default(href='/records', role='button') 未完成
+    a.btn.btn-default(href='/records?status=1', role='button') 已完成
+
+  #errMsg
+    if errMsg
+      pre= errMsg
+
+  div
+    table.table
+      thead
+        colgroup
+          col.col-xs-10
+          col.col-xs-1
+          col.col-xs-1
+        tr
+          th 描述
+          th 标签
+          th 所有者
+          th 操作
+      each record in records
+        tr
+          td
+            form(action='/records/#{record.id}/#{status == 0 ? "done" : "undone" }', method='POST')
+              .checkbox
+                label
+                  input(type='checkbox', checked=(record.get('status') == 1), onClick='submit()')
+                  | #{record.get('value')}
+          td= record.get('tags') == null ? '' : record.get('tags').join(',')
+          td= record.get('author') == null ? '' : record.get('author').get('username')
+          td
+            form(action='/records/#{record.id}?_method=DELETE&status=#{status}', method='POST')
+              input.btn.btn-default(type='submit', value='删除')
