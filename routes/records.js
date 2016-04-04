@@ -20,6 +20,7 @@ router.post('/', function(req, res, next) {
   if (req.AV.user) {
     record.set('author', req.AV.user);
   }
+  record.set("recordDate",new Date());
   record.save(null, {
     success: function(record) {
       res.redirect('/records')
@@ -59,39 +60,6 @@ router.get('/', function(req, res, next) {
 });
 
 
-//Return all the data of one specific user
-function getAllMyRecords(req, res) {
-  	console.log(req)
 
-	var user = AV.User.current();
-	var start = parseInt(req.body['start']);
-	var limit = parseInt(req.body['limit']) || 10;
-
-	var cql = "select include value, * from Record where author=? limit ? order by updatedAt desc";
-
-/*	if (start == "undefined" || limit == "undefined")
-		cql = "select * from Record where author=?";*/
-	//var proSelect = AV.Query.doCloudQuery(cql, [user, limit ]);
-	var proSelect = AV.Query.doCloudQuery(cql, ['jasonj', limit ]);
-	var succ = {}, voList = [];
-  	res.success('Hello world!');
-/*
-		proSelect.then(function(result) {
-			var results = result.results;
-			if(results.length){
-				for(var i=0; i<results.length; i++){
-					var record = {};
-					record.author = results[i].get('author') || "";
-					record.value = results[i].get('value') || "";
-					
-					voList.push(record);
-				}
-				succ.voList = voList;
-				
-				res.json(succ); // return JSON to web.
-			}
-		});*/
-
-}
 
 module.exports = router;

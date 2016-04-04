@@ -1,7 +1,7 @@
 var AV = require('leanengine');
 var _ = require('underscore');
 
-var records = require('./routes/records');
+var records = require('./api/records');
 
 
 /**
@@ -13,6 +13,7 @@ AV.Cloud.define('hello', function(req, res) {
 });
 
 AV.Cloud.define("getAllMyRecords", records.getAllMyRecords);
+AV.Cloud.define("report1Record", records.report1Record);
 
 // 从 content 中查找 tag 的正则表达式
 var tagRe = /#(\w+)/g
